@@ -1,0 +1,189 @@
+customers without requiring an intermediary. Open Financial Exchange is an open
+specification that anyone can implement: any financial institution, transaction
+processor, software developer or other party. It uses widely accepted open
+standards for data formatting (such as SGML), connectivity (such as TCP/IP and
+HTTP), and security (such as SSL). Open Financial Exchange defines the request
+and response messages used by each financial service as well as the common
+framework and infrastructure to support the communication of those messages.
+This specification does not describe any specific product implementation. Design
+Principles The following principles were used in designing Open Financial
+Exchange: l Broad Range of Financial Activities - Open Financial Exchange
+provides support for a broad range of financial activities. Open Financial
+Exchange 1.0 specifies the following services: n Bank statement download n
+Credit card statement download n Funds transfers including recurring transfers n
+Consumer payments, including recurring payments n Business payments, including
+recurring payments n Brokerage and mutual fund statement download, including
+transaction history, current holdings and balances l Broad Range of Financial
+Institutions - Open Financial Exchange supports communication with a broad range
+of financial institutions (FIs), including: n Banks n Brokerage houses n
+Merchants n Processors n Financial advisors n Government agencies l Broad Range
+of Front-End applications - Open Financial Exchange supports a broad range of
+front-end applications covering all types of financial activities running on all
+types of platforms, including Web-based applications. l Extensible - Open
+Financial Exchange has been designed to allow the easy addition of new services.
+Future versions will include support for many new services. l Open - This
+specification is publicly available. You can build client and server
+applications using the Open Financial Exchange protocols independent of any
+specific technology, product, or company. l Multiple Client Support - Open
+Financial Exchange allows a user to use multiple client applications to access
+the same data at a financial institution. With the popularity of the World Wide
+Web, customers are increasingly more likely to use multiple applications-either
+desktop-based or Web-based-to perform financial activities. For example, a
+customer can track personal finances at home with a desktop application and
+occasionally pay bills while at work with a Web-based application. The use of
+data synchronization to support multiple clients is a key innovation in Open
+Financial Exchange. l Robust - Open Financial Exchange will be used for
+executing important financial transactions and for communicating important
+financial information. Assuring users that transactions are executed and
+information is correct is crucial. Open Financial Exchange provides robust
+protocols for error recovery. l Secure - Open Financial Exchange provides a
+framework for building secure online financial services. In Open Financial
+Exchange, security encompasses authentication of the parties involved, as well
+as secrecy and integrity of the information being exchanged. l Batch &
+Interactive - The design of request and response messages in Open Financial
+Exchange is for use in either batch or interactive style of communication. Open
+Financial Exchange provides for applying a single authentication context to
+multiple requests in order to reduce the overhead of user authentication. l
+International Support - Open Financial Exchange is designed to supply financial
+services throughout the world. It supports multiple currencies, country-specific
+extensions, and different forms of encoding such as UNICODE. l Platform
+Independent -Open Financial Exchange can be implemented on a wide variety of
+front-end client devices, including those running Windows 3.1, Windows 95,
+Windows NT, Macintosh, or UNIX. It also supports a wide variety of Web-based
+environments, including those using HTML, Java, JavaScript, or ActiveX.
+Similarly on the back-end, Open Financial Exchange can be implemented on a wide
+variety of server systems, including those running UNIX, Windows NT, or OS/2. l
+Transport Independent - Open Financial Exchange is independent of the data
+communication protocol used to transport the messages between the client and
+server computers. Open Financial Exchange 1.0 will use HTTP. Open Financial
+Exchange at a Glance The design of Open Financial Exchange is as a client and
+server system. An end-user uses a client application to communicate with a
+server at a financial institution. The form of communication is requests from
+the client to the server and responses from the server back to the client. Open
+Financial Exchange uses the Internet Protocol (IP) suite to provide the
+communication channel between a client and a server. IP protocols are the
+foundation of the public Internet and a private network can also use them. Data
+Transport Clients use the HyperText Transport Protocol (HTTP) to communicate to
+an Open Financial Exchange server. The World Wide Web throughout uses the same
+HTTP protocol. In principle, a financial institution can use any off-the-shelf
+web server to implement its support for Open Financial Exchange. To communicate
+by means of Open Financial Exchange over the Internet, the client must establish
+an Internet connection. This connection can be a dial-up Point-to-Point Protocol
+(PPP) connection to an Internet Service Provider (ISP) or a connection over a
+local area network that has a gateway to the Internet. Clients use the HTTP POST
+command to send a request to the previously acquired Uniform Resource Locator
+(URL) for the desired financial institution. The URL presumably identifies a
+Common Gateway Interface (CGI) or other process on an FI server that can accept
+Open Financial Exchange requests and produce a response. The POST identifies the
+data as being of type application/x-ofx. Use application/x-ofx as the return
+type as well. Fill in other fields per the HTTP 1.0 spec. Here is a typical
+request: POST http://www.fi.com/ofx.cgi HTTP/1.0 User-Agent:MyApp 5.0
+Content-Type: application/x-ofx Content-Length: 1032 OFXHEADER:100 DATA:OFXSGML
+VERSION:100 SECURITY:1 ENCODING:USASCII ... Open Financial Exchange requests ...
+A blank line defines the separation between the HTTP headers and the start of
+the actual Open Financial Exchange data. A blank line also separates the Open
+Financial Exchange headers and the actual response. (See Chapter 2, for more
+information.) The structure of a response is similar to the request, with the
+first line containing the standard HTTP result, as shown next. The content
+length is given in bytes. HTTP 1.0 200 OK Content-Type: application/x-ofx
+Content-Length: 8732 OFXHEADER:100 DATA:OFXSGML VERSION:100 SECURITY:1
+ENCODING:USASCII ... Open Financial Exchange responses ... Request and Response
+Model The basis for Open Financial Exchange is the request and response model.
+One or more requests can be batched in a single file. This file typically
+includes a signon request and one or more service-specific requests. An FI
+server will process all of the requests and return a single response file. This
+batch model lends itself to Internet transport as well as other off-line
+transports. Both requests and responses are plain text files, formatted using a
+grammar based on Standard Generalized Markup Language (SGML). Open Financial
+Exchange is syntactically similar to HyperText Markup Language (HTML), featuring
+tags to identify and delimit the data. The use of a tagged data format allows
+Open Financial Exchange to evolve over time while continuing to support older
+clients and servers. Here is a simplified example of an Open Financial Exchange
+request file. (This example does not show the Open Financial Exchange headers
+and the indentation is only for readability.) For complete details, see the more
+complete examples throughout this specification. The key rule of Open Financial
+Exchange syntax is that each tag is either an element or an aggregate. Data
+follows its element tag. An aggregate tag begins a compound tag sequence, which
+must end with a matching tag; for examp actual file Open Financial Exchange
+sends is without any extra white space between tags. Conventions The conventions
+used in the detailed descriptions include: Required tags are in bold. Regular
+face indicates tags that are optional. Required means that a client will always
+include a tag in a request, and a server must always include a tag in a
+response. Italic shows a required or optional aggregate from a set of possible
+aggregates. Required tags occur once unless noted as one or more in the
+description, in which case the specification allows multiple occurrences.
+Optional tags occur once if present unless noted as zero or more in the
+description, in which case the specification allows multiple occurrences.
+Allowable specific values are listed, where applicable. A-n or N-n, specify
+those values that take general alphanumeric or pure numeric type values, where n
+indicates the maximum size. References to certain common value types, such as a
+dollar amount, are by name. Chapter 3 lists value types that can be referenced
+by name. Tag Description Structure This chapter describes the basic structure of
+an Open Financial Exchange request and response. Structure includes headers,
+basic syntax, and the Signon request and response. This chapter also describes
+how Open Financial Exchange encodes external data, such as bit maps. Open
+Financial Exchange data consists of some headers plus one or more Open Financial
+Exchange data blocks. Each block consists of a signon message and zero or more
+additional messages. When sent over the internet using HTTP, standard HTTP and
+multi-part MIME headers and formats surround the Open Financial Exchange data. A
+simple file that contained only Open Financial Exchange data would have the
+following form: HTTP headers MIME type application/x-ofx Open Financial Exchange
+headers Open Financial Exchange SGML block 1 A more complex file that contained
+multiple Open Financial Exchange data blocks and additional Open Financial
+Exchange data would have this form: HTTP headers MIME type
+multipart/x-mixed-replace; boundary =--boundary- ---boundary--- MIME type
+application/x-ofx Open Financial Exchange headers Open Financial Exchange SGML
+block 1 Open Financial Exchange SGML block 2 ---boundary--- MIME type image/jpeg
+FI logo HTTP Headers Data delivered by way of HTTP places the standard HTTP
+result code on the first line. HTTP defines a number of status codes. Servers
+can return any standard HTTP result. However, FIs should expect clients to
+collapse these codes into the following three cases: Code Meaning Action 200 OK
+The request was processed and a valid Open Financial Exchange result is
+returned. 400s Bad request The request was invalid and was not processed.
+Clients will report an internal error to the user. 500s Server error The server
+is unavailable. Clients should advise the user to retry shortly. NOTE: Open
+Financial Exchange returns a code 400 only if it cannot parse the file. Open
+Financial Exchange handles content errors such as wrong PIN, or invalid account,
+by returning a valid Open Financial Exchange response along with code 200. Open
+Financial Exchange requires the following HTTP standard headers: Code Value
+Explanation Content-type application/x-ofx The MIME type for Open Financial
+Exchange Content-length length Length of the data after removing HTTP headers
+When responding with multi-part MIME, the main type will be
+multi-part/x-mixed-replace; one of the parts will use application/x-ofx. Open
+Financial Exchange Headers The intent of Open Financial Exchange is for use with
+a variety of transports and to provide sufficient version control capabilities
+for future expansion. To support this goal, the contents of an Open Financial
+Exchange file consist of a simple set of headers followed by contents defined by
+that header. "File format" means the entire content after removal of any
+transport headers. The HTTP transport described in this document, means without
+the HTTP and MIME headers. The Open Financial Exchange headers are in a simple
+tag:value syntax and terminated by a blank line. Open Financial Exchange always
+sends headers unencrypted, even if there is application-level encryption in use
+for the remaining contents. The first entry will always be OFXHEADER with a
+version number. This entry will help identify the contents as an Open Financial
+Exchange file, and provides the version of the Open Financial Exchange headers
+that follow (not of the content itself). For example: OFXHEADER:100 This
+document defines version 1.0 of the headers to contain at least the following
+additional tags: DATA:OFXSGML VERSION:100 SECURITY: ENCODING: CHARSET:
+COMPRESSION: OLDFILEUID: NEWFILEUID: The data tag identifies the contents as
+being in OFX SGML form. VERSION identifies the version type as OFXSGML data. In
+the case of OFXSGML, it translates to the version of the Document Type
+Definition (DTD) that it uses for parsing. The ENCODING and CHARSET tags define
+the interpretation of the character data. See Chapter 5, "International Support"
+for more information on these tags. Chapter 4 describes the security tag. A
+future version of this specification will define compression. Open Financial
+Exchange uses OLDFILEUID and NEWFILEUID to support error recovery. They are not
+present when clients are not requesting error recovery. (See Chapter 6, "Data
+Synchronization") A blank line follows the last tag. Then (for type OFXSGML), t
+NOTE: Here, VERSION provides the overall version of the DTD. The block describes
+the specific message set versions used, shown later in this chapter. The Meaning
+of Version Numbers The OFXHEADER value should only change its major number if an
+existing client is unable to process the new header. This can occur because of a
+complete syntax change in a header, or a significant change in the semantics of
+an existing tag-not the entire response. You can add new tags as long as clients
+can function without understanding them. You should add new values for a data
+tag only when you introduce an entirely new syntax. In the case of OFXSGML, a
+new syntax would have to be non-SGML compliant to warrant a new data value. It
+is possible that there will be more than one syntax in use at the same time to
+meet different needs. The intent of the header version tag is to identify
+syntactic

@@ -1,0 +1,38 @@
+.right-body {
+  background-color: aquamarine;
+}
+
+.right-body {
+  left: auto;
+  width: 40px;
+  position: fixed;
+  bottom: 0px;
+  left: auto;
+  right: 40px;
+  z-index: 10;
+  color: white;
+
+  .email {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+  }
+}
+
+.email a {
+  margin: 20px auto;
+  padding: 10px;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+}
+
+.email::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 90px;
+  margin: 0px auto;
+  background-color: white;
+}

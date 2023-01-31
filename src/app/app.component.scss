@@ -1,0 +1,15 @@
+.three-sections {
+  background-color: burlywood;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  .left-panel {
+    width: 10%;
+  }
+  .main-panel {
+    width: 80%;
+  }
+  .right-panel {
+    width: 10%;
+  }
+}
