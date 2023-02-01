@@ -3,7 +3,15 @@
 <!-- Sahil is currently a student at University of Windsor, Ontario, Canada -->
 
 <div class="app-root">
-  <app-header></app-header>
+  <div
+    ngxHideOnScroll
+    class="header"
+    [propertyUsedToHide]="'transform'"
+    [valueWhenHidden]="'translateY(-100%)'"
+    [valueWhenShown]="'translateY(0%)'"
+  >
+    <app-header></app-header>
+  </div>
   <div class="three-sections">
     <app-left-panel class="left-panel"></app-left-panel>
     <app-main class="main-panel"></app-main>
