@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { RightPanelComponent } from './right-panel/right-panel.component';
 import { MainComponent } from './main/main.component';
+import { NgxHideOnScrollModule } from 'ngx-hide-on-scroll';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,10 @@ import { MainComponent } from './main/main.component';
     HeaderComponent,
     LeftPanelComponent,
     RightPanelComponent,
-    MainComponent
+    MainComponent,
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule, NgxHideOnScrollModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
